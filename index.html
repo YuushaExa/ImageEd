@@ -15,6 +15,14 @@
         .options {
             margin: 10px 0;
         }
+        #previewImg {
+            margin-top: 20px;
+            display: none;
+        }
+        #downloadBtn {
+            display: none;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -25,9 +33,9 @@
     <div id="output">
         <canvas id="canvas"></canvas>
         <div id="preview">
-            <img id="previewImg" alt="Transformed Image Preview" style="margin-top: 20px;">
+            <img id="previewImg" alt="Transformed Image Preview">
         </div>
-        <button id="downloadBtn" onclick="downloadImage()" style="display: none; margin-top: 20px;">Download Image</button>
+        <button id="downloadBtn" onclick="downloadImage()">Download Image</button>
     </div>
     <div class="options">
         <button onclick="applyAnimeStyle()">Turn to Anime Style</button>
