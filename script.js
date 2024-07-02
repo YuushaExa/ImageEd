@@ -26,11 +26,10 @@ function drawImageOnCanvas(image) {
     canvas.width = image.width;
     canvas.height = image.height;
     ctx.drawImage(image, 0, 0);
+    updatePreview();
 }
 
 function applyAnimeStyle() {
-    // Example transformation logic (replace with actual anime-style logic)
-    // For now, let's just invert colors as a placeholder for anime style
     let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     let data = imageData.data;
 
@@ -40,10 +39,10 @@ function applyAnimeStyle() {
         data[i + 2] = 255 - data[i + 2]; // Invert blue
     }
     ctx.putImageData(imageData, 0, 0);
+    updatePreview();
 }
 
 function applyPixelArt() {
-    // Example pixelation logic
     let pixelSize = 10; // Size of the "pixels"
     let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     let data = imageData.data;
@@ -68,6 +67,7 @@ function applyPixelArt() {
         }
     }
     ctx.putImageData(imageData, 0, 0);
+    updatePreview();
 }
 
 function removeWhiteBackground() {
@@ -80,4 +80,19 @@ function removeWhiteBackground() {
         }
     }
     ctx.putImageData(imageData, 0, 0);
+    updatePreview();
+}
+
+function updatePreview() {
+    let previewImg = document.getElementById('previewImg');
+    let downloadBtn = document.getElementById('downloadBtn');
+    previewImg.src = canvas.toDataURL();
+    downloadBtn.style.display = 'block';
+}
+
+function downloadImage() {
+    let link = document.createElement('a');
+    link.download = 'transformed_image.png';
+    link.href = canvas.toDataURL();
+    link.click();
 }
