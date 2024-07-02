@@ -6,10 +6,10 @@ document.addEventListener('keydown', (e) => { keys[e.key] = true; });
 document.addEventListener('keyup', (e) => { keys[e.key] = false; });
 
 const playerImage = new Image();
-playerImage.src = 'path/to/your/player.png';
+playerImage.src = 'player.png';
 
 const enemyImage = new Image();
-enemyImage.src = 'path/to/your/enemy.png';
+enemyImage.src = 'enemy.png';
 
 const player = {
     x: 50,
