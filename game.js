@@ -36,9 +36,9 @@ const enemy = {
 enemy.img.src = 'enemy.png'; // Replace with your enemy image path
 
 const backgrounds = [
-    { src: 'background1.png', x: 0, speed: 0.2 },
-    { src: 'background2.png', x: 0, speed: 0.4 },
-    { src: 'background3.png', x: 0, speed: 0.6 }
+    { src: 'https://www.spriters-resource.com/resources/sheets/90/92695.png?updated=1495660389', x: 0, speed: 0.2 },
+    { src: 'https://www.spriters-resource.com/resources/sheets/34/36513.png?updated=1606272288', x: 0, speed: 0.4 },
+    { src: 'https://www.spriters-resource.com/resources/sheets/149/152422.png?updated=1618252716', x: 0, speed: 0.6 }
 ];
 
 backgrounds.forEach(bg => {
