@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Transformer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #output {
+            margin-top: 20px;
+        }
+        .options {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Transformer</h1>
+    <input type="file" id="uploadInput">
+    <input type="text" id="urlInput" placeholder="Or enter image URL">
+    <button onclick="loadImage()">Load Image</button>
+    <div id="output">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div class="options">
+        <button onclick="applyAnimeStyle()">Turn to Anime Style</button>
+        <button onclick="applyPixelArt()">Turn to Pixel Art</button>
+        <button onclick="removeWhiteBackground()">Remove White Background</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
