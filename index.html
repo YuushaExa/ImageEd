@@ -24,6 +24,10 @@
     <button onclick="loadImage()">Load Image</button>
     <div id="output">
         <canvas id="canvas"></canvas>
+        <div id="preview">
+            <img id="previewImg" alt="Transformed Image Preview" style="margin-top: 20px;">
+        </div>
+        <button id="downloadBtn" onclick="downloadImage()" style="display: none; margin-top: 20px;">Download Image</button>
     </div>
     <div class="options">
         <button onclick="applyAnimeStyle()">Turn to Anime Style</button>
@@ -33,4 +37,3 @@
     <script src="script.js"></script>
 </body>
 </html>
- 
