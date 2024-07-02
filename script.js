@@ -2,27 +2,31 @@ let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
 let img = new Image();
 
+img.onload = () => {
+    console.log('Image loaded successfully');
+    drawImageOnCanvas(img);
+    updatePreview();
+};
+
+img.onerror = () => {
+    console.error('Failed to load image');
+    alert('Failed to load image. Please check the file or URL.');
+    resetPreview();
+};
+
 function loadImage() {
     let fileInput = document.getElementById('uploadInput');
     let urlInput = document.getElementById('urlInput').value;
 
-    img.onload = () => {
-        drawImageOnCanvas(img);
-        updatePreview();
-    };
-
-    img.onerror = () => {
-        alert('Failed to load image. Please check the file or URL.');
-        resetPreview();
-    };
-
     if (fileInput.files && fileInput.files[0]) {
+        console.log('Loading image from file input');
         let reader = new FileReader();
         reader.onload = function (e) {
             img.src = e.target.result;
         }
         reader.readAsDataURL(fileInput.files[0]);
     } else if (urlInput) {
+        console.log('Loading image from URL input');
         img.crossOrigin = "Anonymous"; // To avoid CORS issues
         img.src = urlInput;
     } else {
@@ -34,6 +38,7 @@ function loadImage() {
 function drawImageOnCanvas(image) {
     canvas.width = image.width;
     canvas.height = image.height;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(image, 0, 0);
 }
 
@@ -105,6 +110,7 @@ function resetPreview() {
     previewImg.src = '';
     previewImg.style.display = 'none';
     downloadBtn.style.display = 'none';
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
 }
 
 function downloadImage() {
