@@ -6,16 +6,10 @@ document.addEventListener('keydown', (e) => { keys[e.key] = true; });
 document.addEventListener('keyup', (e) => { keys[e.key] = false; });
 
 const playerImage = new Image();
-playerImage.src = 'player.png';
+playerImage.src = 'path/to/your/player.png';
 
 const enemyImage = new Image();
-enemyImage.src = 'enemy.png';
-
-const backgroundImage = new Image();
-backgroundImage.src = 'https://www.spriters-resource.com/resources/sheets/152/155209.png?updated=1622984137';
-
-const wallImage = new Image();
-wallImage.src = 'https://www.spriters-resource.com/resources/sheet_icons/57/59724.png?updated=1460951654';
+enemyImage.src = 'path/to/your/enemy.png';
 
 const player = {
     x: 50,
@@ -27,11 +21,6 @@ const player = {
     attackRange: 50,
     attackPower: 10
 };
-
-const walls = [
-    { x: 0, y: 0, width: canvas.width, height: 50 }, // Top wall
-    { x: 0, y: 0, width: 50, height: canvas.height } // Left wall
-];
 
 const enemies = [];
 let enemySpawnTimer = 0;
@@ -66,19 +55,24 @@ function updatePlayer() {
 }
 
 function updateEnemies() {
-    for (let i = enemies.length - 1; i >= 0; i--) {
-        const enemy = enemies[i];
-        enemy.x -= enemy.speed;
-
-        if (enemy.x + enemy.width < 0) {
-            enemies.splice(i, 1);
-            continue;
+    enemies.forEach(enemy => {
+        if (enemy.x > player.x) {
+            enemy.x -= enemy.speed;
+        }
+        if (enemy.x < player.x) {
+            enemy.x += enemy.speed;
+        }
+        if (enemy.y > player.y) {
+            enemy.y -= enemy.speed;
+        }
+        if (enemy.y < player.y) {
+            enemy.y += enemy.speed;
         }
 
         if (Math.abs(enemy.x - player.x) <= player.attackRange && Math.abs(enemy.y - player.y) <= player.height) {
             enemy.health -= player.attackPower;
             if (enemy.health <= 0) {
-                enemies.splice(i, 1);
+                enemies.splice(enemies.indexOf(enemy), 1);
             } else {
                 player.health -= enemy.attackPower;
                 if (player.health <= 0) {
@@ -87,7 +81,7 @@ function updateEnemies() {
                 }
             }
         }
-    }
+    });
 }
 
 function drawPlayer() {
@@ -100,21 +94,27 @@ function drawEnemies() {
     });
 }
 
-function drawBackground() {
-    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-}
+function drawBoundaries() {
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 5;
 
-function drawWalls() {
-    walls.forEach(wall => {
-        ctx.drawImage(wallImage, wall.x, wall.y, wall.width, wall.height);
-    });
+    // Top boundary
+    ctx.beginPath();
+    ctx.moveTo(0, 50);
+    ctx.lineTo(canvas.width, 50);
+    ctx.stroke();
+
+    // Left boundary
+    ctx.beginPath();
+    ctx.moveTo(50, 0);
+    ctx.lineTo(50, canvas.height);
+    ctx.stroke();
 }
 
 function gameLoop(timestamp) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    drawBackground();
-    drawWalls();
+    drawBoundaries();
     
     updatePlayer();
     updateEnemies();
