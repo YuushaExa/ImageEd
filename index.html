@@ -3,33 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rage of Street</title>
+    <title>Rage of the Street</title>
     <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
         canvas {
+            border: 1px solid black;
             display: block;
-            background-color: #000;
-        }
-        #attackButton {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 20px;
-            background-color: red;
-            color: white;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
+            margin: 0 auto;
+            background-color: #f0f0f0;
         }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
-    <button id="attackButton">Attack</button>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
     <script src="game.js"></script>
 </body>
 </html>
