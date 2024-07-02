@@ -5,17 +5,33 @@ const keys = {};
 document.addEventListener('keydown', (e) => { keys[e.key] = true; });
 document.addEventListener('keyup', (e) => { keys[e.key] = false; });
 
+const playerImage = new Image();
+playerImage.src = 'player.png';
+
+const enemyImage = new Image();
+enemyImage.src = 'enemy.png';
+
+const backgroundImage = new Image();
+backgroundImage.src = 'https://www.spriters-resource.com/resources/sheets/152/155209.png?updated=1622984137';
+
+const wallImage = new Image();
+wallImage.src = 'https://www.spriters-resource.com/resources/sheet_icons/57/59724.png?updated=1460951654';
+
 const player = {
     x: 50,
     y: canvas.height / 2,
     width: 50,
     height: 50,
-    color: 'blue',
     speed: 5,
     health: 100,
     attackRange: 50,
     attackPower: 10
 };
+
+const walls = [
+    { x: 0, y: 0, width: canvas.width, height: 50 }, // Top wall
+    { x: 0, y: 0, width: 50, height: canvas.height } // Left wall
+];
 
 const enemies = [];
 let enemySpawnTimer = 0;
@@ -27,7 +43,6 @@ function spawnEnemy() {
         y: Math.random() * (canvas.height - 50),
         width: 50,
         height: 50,
-        color: 'red',
         speed: 2,
         health: 50,
         attackPower: 5
@@ -36,11 +51,17 @@ function spawnEnemy() {
 }
 
 function updatePlayer() {
-    if (keys['ArrowUp'] && player.y > 0) {
+    if (keys['ArrowUp'] && player.y > 50) {
         player.y -= player.speed;
     }
     if (keys['ArrowDown'] && player.y < canvas.height - player.height) {
         player.y += player.speed;
+    }
+    if (keys['ArrowLeft'] && player.x > 50) {
+        player.x -= player.speed;
+    }
+    if (keys['ArrowRight'] && player.x < canvas.width - player.width) {
+        player.x += player.speed;
     }
 }
 
@@ -70,20 +91,31 @@ function updateEnemies() {
 }
 
 function drawPlayer() {
-    ctx.fillStyle = player.color;
-    ctx.fillRect(player.x, player.y, player.width, player.height);
+    ctx.drawImage(playerImage, player.x, player.y, player.width, player.height);
 }
 
 function drawEnemies() {
     enemies.forEach(enemy => {
-        ctx.fillStyle = enemy.color;
-        ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+        ctx.drawImage(enemyImage, enemy.x, enemy.y, enemy.width, enemy.height);
+    });
+}
+
+function drawBackground() {
+    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+}
+
+function drawWalls() {
+    walls.forEach(wall => {
+        ctx.drawImage(wallImage, wall.x, wall.y, wall.width, wall.height);
     });
 }
 
 function gameLoop(timestamp) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    drawBackground();
+    drawWalls();
+    
     updatePlayer();
     updateEnemies();
     
