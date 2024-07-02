@@ -6,19 +6,28 @@ function loadImage() {
     let fileInput = document.getElementById('uploadInput');
     let urlInput = document.getElementById('urlInput').value;
 
+    img.onload = () => {
+        drawImageOnCanvas(img);
+        updatePreview();
+    };
+
+    img.onerror = () => {
+        alert('Failed to load image. Please check the file or URL.');
+        resetPreview();
+    };
+
     if (fileInput.files && fileInput.files[0]) {
         let reader = new FileReader();
         reader.onload = function (e) {
             img.src = e.target.result;
-            img.onload = () => drawImageOnCanvas(img);
         }
         reader.readAsDataURL(fileInput.files[0]);
     } else if (urlInput) {
         img.crossOrigin = "Anonymous"; // To avoid CORS issues
         img.src = urlInput;
-        img.onload = () => drawImageOnCanvas(img);
     } else {
         alert('Please upload a file or enter a URL');
+        resetPreview();
     }
 }
 
@@ -26,7 +35,6 @@ function drawImageOnCanvas(image) {
     canvas.width = image.width;
     canvas.height = image.height;
     ctx.drawImage(image, 0, 0);
-    updatePreview();
 }
 
 function applyAnimeStyle() {
@@ -87,7 +95,16 @@ function updatePreview() {
     let previewImg = document.getElementById('previewImg');
     let downloadBtn = document.getElementById('downloadBtn');
     previewImg.src = canvas.toDataURL();
+    previewImg.style.display = 'block';
     downloadBtn.style.display = 'block';
+}
+
+function resetPreview() {
+    let previewImg = document.getElementById('previewImg');
+    let downloadBtn = document.getElementById('downloadBtn');
+    previewImg.src = '';
+    previewImg.style.display = 'none';
+    downloadBtn.style.display = 'none';
 }
 
 function downloadImage() {
