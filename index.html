@@ -4,44 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Endless Frontier Clone</title>
-   <style>
-     body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 20px;
-}
-
-#game {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    padding: 20px;
-}
-
-button {
-    background: #007bff;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 10px 20px;
-}
-
-button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-}
-
-    </style></head>
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
     <div id="game">
         <h1>Endless Frontier Clone</h1>
         <p>Gold: <span id="gold">0</span></p>
-        <button id="upgrade">Upgrade (Cost: <span id="upgrade-cost">10</span> gold)</button>
+        <div id="units">
+            <div class="unit">
+                <h2>Warrior</h2>
+                <p>Quantity: <span class="quantity" id="warrior-quantity">0</span></p>
+                <p>Gold per second: <span class="gps" id="warrior-gps">1</span></p>
+                <button class="buy-unit" data-unit="warrior">Buy Warrior (Cost: <span class="cost" id="warrior-cost">10</span> gold)</button>
+            </div>
+            <div class="unit">
+                <h2>Archer</h2>
+                <p>Quantity: <span class="quantity" id="archer-quantity">0</span></p>
+                <p>Gold per second: <span class="gps" id="archer-gps">5</span></p>
+                <button class="buy-unit" data-unit="archer">Buy Archer (Cost: <span class="cost" id="archer-cost">50</span> gold)</button>
+            </div>
+        </div>
+        <canvas id="battlefield" width="800" height="400"></canvas>
+        <button id="battle">Battle (Level: <span id="level">1</span>)</button>
     </div>
     <script src="game.js"></script>
 </body>
