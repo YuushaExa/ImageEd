@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    let gold = 0;
+    let gold = 10000;
     let units = {
         warrior: { quantity: 0, gps: 1, cost: 10, color: 'blue' },
         archer: { quantity: 0, gps: 5, cost: 50, color: 'green' }
