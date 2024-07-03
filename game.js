@@ -11,9 +11,12 @@ playerImage.src = 'player.png';
 const enemyImage = new Image();
 enemyImage.src = 'enemy.png';
 
+const backgroundImage = new Image();
+backgroundImage.src = 'https://img.itch.zone/aW1hZ2UvMTAzMDc1Mi81ODg2OTk2LnBuZw==/347x500/CMK6JA.png';
+
 const player = {
     x: 50,
-    y: canvas.height / 2,
+    y: 50,
     width: 50,
     height: 50,
     speed: 5,
@@ -94,6 +97,10 @@ function drawEnemies() {
     });
 }
 
+function drawBackground() {
+    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+}
+
 function drawBoundaries() {
     ctx.strokeStyle = 'red';
     ctx.lineWidth = 5;
@@ -111,14 +118,26 @@ function drawBoundaries() {
     ctx.stroke();
 }
 
+function applyIsometricTransform() {
+    ctx.setTransform(1, 0.5, -1, 0.5, canvas.width / 2, 50);
+}
+
+function resetTransform() {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+}
+
 function gameLoop(timestamp) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    resetTransform();
+    drawBackground();
     drawBoundaries();
-    
+
+    applyIsometricTransform();
+
     updatePlayer();
     updateEnemies();
-    
+
     drawPlayer();
     drawEnemies();
 
