@@ -3,18 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rage of the Street</title>
-    <style>
-        canvas {
-            border: 1px solid black;
-            display: block;
-            margin: 0 auto;
-            background-color: #f0f0f0;
-        }
-    </style>
-</head>
+    <title>Endless Frontier Clone</title>
+   <style>
+     body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+#game {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    padding: 20px;
+}
+
+button {
+    background: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+    </style></head>
 <body>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div id="game">
+        <h1>Endless Frontier Clone</h1>
+        <p>Gold: <span id="gold">0</span></p>
+        <button id="upgrade">Upgrade (Cost: <span id="upgrade-cost">10</span> gold)</button>
+    </div>
     <script src="game.js"></script>
 </body>
 </html>
