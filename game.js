@@ -80,8 +80,8 @@ class Unit {
         this.target = closestTarget;
     }
 
-  attackTarget() { // Rename 'attack' method to 'attackTarget'
-        if (this.target && Date.now() - this.lastAttack > 1000) {
+    attackTarget() {
+        if (this.target && this.target.health > 0 && Date.now() - this.lastAttack > 1000) {
             const dx = this.target.x - this.x;
             const dy = this.target.y - this.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
@@ -102,6 +102,9 @@ class Unit {
                     this.target = null;
                 }
             }
+        } else if (!this.target || this.target.health <= 0) {
+            this.target = null;
+            this.findTarget();
         }
     }
 
@@ -184,21 +187,30 @@ function drawBase(base, color) {
 }
 
 function gameLoop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     drawBase(game.playerBase, 'purple');
     drawBase(game.enemyBase, 'black');
 
+    // Update and draw allies
     game.allies = game.allies.filter(ally => ally.health > 0);
     game.allies.forEach(ally => {
         ally.update();
         ally.draw();
     });
 
+    // Update and draw enemies
     game.enemies = game.enemies.filter(enemy => enemy.health > 0);
     game.enemies.forEach(enemy => {
         enemy.update();
         enemy.draw();
+    });
+
+    // Clear targets for all units if their target has been destroyed
+    game.allies.concat(game.enemies).forEach(unit => {
+        if (unit.target && unit.target.health <= 0) {
+            unit.target = null;
+        }
     });
 
     // Draw damage texts
