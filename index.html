@@ -3,30 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Endless Frontier Clone</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Plants vs Zombies Clone</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #ddd;
+        }
+        canvas {
+            background: #fff;
+            border: 1px solid #000;
+        }
+    </style>
 </head>
 <body>
-    <div id="game">
-        <h1>Endless Frontier Clone</h1>
-        <p>Gold: <span id="gold">0</span></p>
-        <div id="units">
-            <div class="unit">
-                <h2>Warrior</h2>
-                <p>Quantity: <span class="quantity" id="warrior-quantity">0</span></p>
-                <p>Gold per second: <span class="gps" id="warrior-gps">1</span></p>
-                <button class="buy-unit" data-unit="warrior">Buy Warrior (Cost: <span class="cost" id="warrior-cost">10</span> gold)</button>
-            </div>
-            <div class="unit">
-                <h2>Archer</h2>
-                <p>Quantity: <span class="quantity" id="archer-quantity">0</span></p>
-                <p>Gold per second: <span class="gps" id="archer-gps">5</span></p>
-                <button class="buy-unit" data-unit="archer">Buy Archer (Cost: <span class="cost" id="archer-cost">50</span> gold)</button>
-            </div>
-        </div>
-        <canvas id="battlefield" width="800" height="400"></canvas>
-        <button id="battle">Battle (Level: <span id="level">1</span>)</button>
-    </div>
+    <canvas id="gameCanvas" width="800" height="400"></canvas>
     <script src="game.js"></script>
 </body>
 </html>
