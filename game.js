@@ -23,7 +23,7 @@ class Unit {
         const types = this.isAlly ? Ally.types : Enemy.types;
         this.health = types[type].health;
         this.maxHealth = types[type].health;
-        this.attack = types[type].attack;
+        this.attack = types[type].attackPower;
         this.speed = types[type].speed;
         this.attackRange = types[type].attackRange;
         this.lastAttack = 0;
@@ -80,13 +80,13 @@ class Unit {
         this.target = closestTarget;
     }
 
-    attack() {
+  attackTarget() { // Rename 'attack' method to 'attackTarget'
         if (this.target && Date.now() - this.lastAttack > 1000) {
             const dx = this.target.x - this.x;
             const dy = this.target.y - this.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             if (distance <= this.attackRange) {
-                const damage = this.attack;
+                const damage = this.attackPower;
                 this.target.health -= damage;
                 this.lastAttack = Date.now();
                 
@@ -108,7 +108,7 @@ class Unit {
     update() {
         if (!this.target) this.findTarget();
         this.move();
-        this.attack();
+        this.attackTarget(); // Call the renamed method
     }
 }
 
@@ -118,9 +118,9 @@ class Ally extends Unit {
     }
 
     static types = {
-        fighter: { health: 100, attack: 20, speed: 1, attackRange: 50, cost: 50, color: 'blue' },
-        tank: { health: 200, attack: 10, speed: 0.5, attackRange: 30, cost: 100, color: 'darkgreen' },
-        ranger: { health: 80, attack: 15, speed: 1.2, attackRange: 100, cost: 75, color: 'purple' }
+        fighter: { health: 100, attackPower: 20, speed: 1, attackRange: 50, cost: 50, color: 'blue' },
+        tank: { health: 200, attackPower: 10, speed: 0.5, attackRange: 30, cost: 100, color: 'darkgreen' },
+        ranger: { health: 80, attackPower: 15, speed: 1.2, attackRange: 100, cost: 75, color: 'purple' }
     };
 }
 
@@ -130,12 +130,11 @@ class Enemy extends Unit {
     }
 
     static types = {
-        grunt: { health: 80, attack: 10, speed: 0.8, attackRange: 40, color: 'red' },
-        brute: { health: 150, attack: 20, speed: 0.6, attackRange: 30, color: 'darkred' },
-        scout: { health: 60, attack: 8, speed: 1.5, attackRange: 60, color: 'orange' }
+        grunt: { health: 80, attackPower: 10, speed: 0.8, attackRange: 40, color: 'red' },
+        brute: { health: 150, attackPower: 20, speed: 0.6, attackRange: 30, color: 'darkred' },
+        scout: { health: 60, attackPower: 8, speed: 1.5, attackRange: 60, color: 'orange' }
     };
 }
-
 function toggleAutoPlacement() {
     game.autoPlacement = !game.autoPlacement;
     document.getElementById('autoPlacementBtn').textContent = game.autoPlacement ? 'Disable Auto Placement' : 'Enable Auto Placement';
