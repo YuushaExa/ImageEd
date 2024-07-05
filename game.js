@@ -86,7 +86,7 @@ class Unit {
             const dy = this.target.y - this.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             if (distance <= this.attackRange) {
-                const damage = this.attackPower;
+                const damage = this.attack;
                 this.target.health -= damage;
                 this.lastAttack = Date.now();
                 
@@ -99,7 +99,7 @@ class Unit {
                 });
 
                 if (this.target.health <= 0) {
-                    this.target = null;
+                    this.target = null; // Target is dead, reset target
                 }
             }
         } else if (!this.target || this.target.health <= 0) {
@@ -114,6 +114,7 @@ class Unit {
         this.attackTarget(); // Call the renamed method
     }
 }
+
 
 class Ally extends Unit {
     constructor(x, y, type) {
@@ -187,7 +188,7 @@ function drawBase(base, color) {
 }
 
 function gameLoop() {
-       ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     drawBase(game.playerBase, 'purple');
     drawBase(game.enemyBase, 'black');
@@ -263,6 +264,7 @@ function gameLoop() {
         requestAnimationFrame(gameLoop);
     }
 }
+
 
 // Generate resources over time
 setInterval(() => {
