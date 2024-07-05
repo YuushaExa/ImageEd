@@ -3,24 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plants vs Zombies Clone</title>
+    <title>Strategy Game</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: start;
             height: 100vh;
             margin: 0;
-            background: #ddd;
+            background-color: #f0f0f0;
+        }
+        #gameContainer {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+        }
+        #controlPanel {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         canvas {
-            background: #fff;
             border: 1px solid #000;
         }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas" width="800" height="400"></canvas>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div id="controlPanel">
+            <h2>Ally Selection</h2>
+            <div>
+                <input type="radio" name="allyType" value="fighter" checked> Fighter (Cost: 50)
+            </div>
+            <div>
+                <input type="radio" name="allyType" value="tank"> Tank (Cost: 100)
+            </div>
+            <div>
+                <input type="radio" name="allyType" value="ranger"> Ranger (Cost: 75)
+            </div>
+            <h3>Instructions:</h3>
+            <p>Click on the canvas to place allies. Defend your base and destroy the enemy base!</p>
+        </div>
+    </div>
     <script src="game.js"></script>
 </body>
 </html>
